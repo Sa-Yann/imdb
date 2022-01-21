@@ -1,7 +1,7 @@
 import React from 'react'
-import Nav from './Nav'
-import Banner from './Banner'
-import Row from './Row'
+import Nav from '../Components/Nav'
+import Banner from '../Components/Banner'
+import Row from '../Components/Row'
 import '../styles/homescreenStyle.css'
 import requests from '../Request'
 
