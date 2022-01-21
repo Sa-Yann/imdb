@@ -1,3 +1,105 @@
 h1 {
     color: white;
 }
+
+
+.loginScreen {
+    position: absolute;
+    /* to position an absolute element in the center of the page you have to use:    */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    /* to position all element inside of the loginSreen in the middle automaticaly if they are not position:fixed */
+    /* margin: auto; */
+    background: url('https://www.hunterandbligh.com.au/wp-content/uploads/2017/05/Netflix-Feature.jpg') center no-repeat;
+    /* background will only show if there is an element at z-index: 0 inside the element it s link to , here the div with class="loginSreen" */
+    background-size: cover;
+}
+
+.lgnScreen__Logo {
+    position: fixed;
+    left: 0;
+    width: 150px;
+    object-fit: contain;
+    /* the object/picture always keep is ration aspect*/
+    padding-left: 20px;
+}
+
+.lgnScreen__Btn {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    padding: 7px 14px;
+    font-size: 0.875rem;
+    color: #fff;
+    background-color: #e50914;
+    border: none;
+    cursor: pointer;
+}
+
+.lgnScreen__Gradient {
+    width: 100%;
+    z-index: 1;
+    height: 100vh;
+    background: rgb(0, 0, 0, 0.4);
+    background-image: linear-gradient(to top,
+            rgba(0, 0, 0, 0.8) 0,
+            rgba(0, 0, 0, 0) 60%,
+            rgba(0, 0, 0, 0.8) 100%);
+}
+
+.lgnScreen__Content h1 {
+    /* color: black; */
+    font-size: 1.750rem;
+    margin-bottom: 20px;
+}
+
+.lgnScreen__Content {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* margin-left: auto;
+    margin-right: auto; */
+    text-align: center;
+    z-index: 1;
+    color: #fff;
+    padding: 20px;
+    /* width: 100%; */
+}
+
+.lgnScreen__Content h2 {
+    /* color: black; */
+    font-size: 1.250rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.lgnScreen__Content h3 {
+    /* color: black; */
+    font-size: 0.750rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.lgnScreen__Input>form>input {
+    padding: 10px;
+    outline-width: 0;
+    /* height: 30px; */
+    width: 30%;
+    border: none;
+    max-width: 600px;
+}  
+
+.lgnScreen__getStartedBtn {
+    padding: 11px 20px;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: #e50914;
+    border: none;
+    font-weight: 600;
+}
+
