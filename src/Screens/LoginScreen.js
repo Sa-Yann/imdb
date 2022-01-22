@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/loginSreenStyle.css';
+import SignUpScreen from './SignUpScreen';
 
 function LoginScreen() {
 
-
+const [signIn, setSignIn] = useState(false)
 
     return (
+
        <div className="loginScreen">
             {/* <h1>I AM THE LOGIN SCREEN</h1> */}
             <div className="logScrnn_BckGrnd">
@@ -16,30 +18,39 @@ function LoginScreen() {
                 />
             <button 
                 className="lgnScreen__Btn"
+                onClick={() => setSignIn(true)}
             >
                 Sign In
             </button>
             <div className="lgnScreen__Gradient" />
             </div>
             <div className="lgnScreen__Content">
-                <>
-                     <h1>Unlimited films, TV Programmes and more...</h1>
-                     <h2>Watch anywhere. Cancet at any time.</h2>
-                     <h3>Ready to watch? Enter your email to create or restart your membership</h3>
-                     <div className="lgnScreen__Input">
-                        <form>
-                            <input
-                            type="email"
-                            placeholder="Email Adress"
-                            />
-                            <button className="lgnScreen__getStartedBtn"
-
-                            >
-                                GET STARTED
-                            </button>
-                        </form>
-                     </div>
-                </>
+                {
+                    signIn ? (
+                        <SignUpScreen />
+                    ) : (
+                        <>
+                            <h1>Unlimited films, TV Programmes and more...</h1>
+                            <h2>Watch anywhere. Cancet at any time.</h2>
+                            <h3>Ready to watch? Enter your email to create or restart your membership</h3>
+                            <div className="lgnScreen__Input">
+                               <form>
+                                   <input
+                                   type="email"
+                                   placeholder="Email Adress"
+                                   />
+                                   <button 
+                                       className="lgnScreen__getStartedBtn"
+                                       OnClick={() => setSignIn(true)} 
+                                   >
+                                       GET STARTED
+                                   </button>
+                               </form>
+                            </div>
+                        </>
+                    )
+                }
+                
             </div>
         </div>
     )
