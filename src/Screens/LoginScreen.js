@@ -4,7 +4,7 @@ import SignUpScreen from './SignUpScreen';
 
 function LoginScreen() {
 
-const [signIn, setSignIn] = useState(false)
+    const [signIn, setSignIn] = useState(false)
 
     return (
 
@@ -41,7 +41,7 @@ const [signIn, setSignIn] = useState(false)
                                    />
                                    <button 
                                        className="lgnScreen__getStartedBtn"
-                                       OnClick={() => setSignIn(true)} 
+                                       onClick={() => setSignIn(true)} 
                                    >
                                        GET STARTED
                                    </button>
@@ -53,8 +53,7 @@ const [signIn, setSignIn] = useState(false)
                 
             </div>
         </div>
-    )
-       
+    )   
 }
 
 export default LoginScreen;
