@@ -1,28 +1,43 @@
 import React, {useRef, useState} from 'react';
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import '../styles/signUpSreenStyle.css';
 
 function SignUpScreen() {
 
-    
-
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("")
     
-
     // useRef = > we need to point to speccific html elements
     // const emailRef = useRef(null);
     // const passwordRef = useRef(null);
 
-    const register = async () => {
+    const register = async (e) => {
+        e.preventDefault()
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-            console.log("file: SignUpScreen.js ~ line 21 ~ register ~ userCredential", userCredential);
+            // console.log("file: SignUpScreen.js ~ line 21 ~ register ~ userCredential", userCredential);
         } catch (error) {
-            console.log(error.message);
+            alert(error.message);
         }
     };
+
+    const signIn = (e) => {
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, registerEmail, registerPassword)
+        .then(
+            console.log(auth.currentUser)
+        )
+        .catch(
+            (error) => {
+                // const errorCode = error.code
+                // const errorMessage = error.message
+                // console.log(`Error type ${errorCode} ${errorMessage}`);
+                console.log(error.message)
+                alert(error.message)
+            }
+        ); 
+    }
 
     // prevemting sign in button to refresh the entire homescreen page once clicked
     // const signIn = (e) => {
@@ -63,13 +78,13 @@ function SignUpScreen() {
                 />
                 <button
                     type="submit"
-                    // onClick={signIn}
-                    onClick={register}
-                    
+                    onClick={signIn}                    
                 >
                     Sign In
                 </button>
+                
             </form>
+            
             <h5
                 style={{
                     color: 'grey'
@@ -81,12 +96,11 @@ function SignUpScreen() {
                     style={{
                         color: 'white'
                     }}
-                    // onClick={register}
+                    onClick={register}
                 > Sign up now.</span>
             </h5>
         </div>
     )
-       
 }
 
 export default SignUpScreen;
