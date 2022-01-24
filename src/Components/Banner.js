@@ -15,11 +15,11 @@ function Banner() {
                 Math.floor(Math.random() * request.data.results.length - 1)
             ],
 
-            console.log('request.data.results.length: ' + request.data.results.length),
+            // console.log('request.data.results.length: ' + request.data.results.length),
 
-            console.log('Math.random() * request.data.results.length): ' + Math.random() * request.data.results.length),
+            // console.log('Math.random() * request.data.results.length): ' + Math.random() * request.data.results.length),
 
-            console.log('Math.floor(Math.random() * request.data.results.length - 1) : ' + Math.floor(Math.random() * request.data.results.length - 1))
+            // console.log('Math.floor(Math.random() * request.data.results.length - 1) : ' + Math.floor(Math.random() * request.data.results.length - 1))
             )
             return request;
         }
@@ -28,7 +28,7 @@ function Banner() {
         
     }, []);
 
-    console.log(movie)
+    // console.log(movie)
 
     function truncate(string, n) {
         // string is the all description details 

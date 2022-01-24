@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router';
 import '../styles/navStyle.css'
 
 function Nav() {
 
     const [showNavBgrdClr, setShowNavBgrdClr] = useState(false);
+
+    const history = useHistory()
 
     const transitionNavBar = () => {
         // window.scrollY > 100 ? setShowNavBgrdClr(false) : setShowNavBgrdClr(true);
@@ -36,6 +39,7 @@ function Nav() {
                     className='nav__avatar'
                     src='https://pbs.twimg.com/media/DmBraqkXcAA1Yco.jpg' 
                     alt='avatar_pics' 
+                    onClick={()=> history.push('/profil')}
                 />
             </div>
         </div>

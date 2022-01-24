@@ -1,59 +1,74 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef } from 'react';
+// import React, { useState} from 'react';
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import '../styles/signUpSreenStyle.css';
 
 function SignUpScreen() {
 
-    const [registerEmail, setRegisterEmail] = useState("");
-    const [registerPassword, setRegisterPassword] = useState("")
+    // const [registerEmail, setRegisterEmail] = useState("");
+    // const [registerPassword, setRegisterPassword] = useState("")
     
     // useRef = > we need to point to speccific html elements
-    // const emailRef = useRef(null);
-    // const passwordRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const register = async (e) => {
         e.preventDefault()
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-            // console.log("file: SignUpScreen.js ~ line 21 ~ register ~ userCredential", userCredential);
+            // // with useState methode:
+            // const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+            // with useRef methode:
+            const userCredential = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
+            console.log("file: SignUpScreen.js ~ line 21 ~ register ~ userCredential", userCredential);
+            // const  user = userCredential.user
         } catch (error) {
             alert(error.message);
         }
     };
 
-    const signIn = (e) => {
-        e.preventDefault();
-        signInWithEmailAndPassword(auth, registerEmail, registerPassword)
-        .then(
-            console.log(auth.currentUser)
-        )
-        .catch(
-            (error) => {
-                // const errorCode = error.code
-                // const errorMessage = error.message
-                // console.log(`Error type ${errorCode} ${errorMessage}`);
-                console.log(error.message)
-                alert(error.message)
-            }
-        ); 
-    }
-
-    // prevemting sign in button to refresh the entire homescreen page once clicked
     // const signIn = (e) => {
     //     e.preventDefault();
-
-    //     auth(
-    //         emailRef.current.value,
-    //         passwordRef.current.value
-    //         )
-    //         .then((authUser) => {
-    //             console.log(authUser)
-    //         })
-    //         .catch((error) => {
+    //     signInWithEmailAndPassword(auth, registerEmail, registerPassword)
+    //     .then(
+    //         console.log(`log from auth.currentUser on line 29: SignUpScreens.js : ${auth.currentUser}`)
+    //     )
+    //     .catch(
+    //         (error) => {
+    //             // const errorCode = error.code
+    //             // const errorMessage = error.message
+    //             // console.log(`Error type ${errorCode} ${errorMessage}`);
+    //             console.log(error.message)
     //             alert(error.message)
-    //         });
-    // };
+    //         }
+    //     ); 
+    // }
+
+    // prevemting sign in button to refresh the entire homescreen page once clicked
+    const signIn = (e) => {
+        // Firebase version 9
+        e.preventDefault();
+        
+        signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+        .then((userCredential) => {
+            const user = userCredential.user
+            console.log("file: SignUpScreen.js ~ line 50 ~ .then ~ user", user)
+        })
+        .catch((error) => {
+            alert(error.message)
+        });
+        // Example Firebase version 8
+        // auth(
+        //     emailRef.current.value,
+        //     passwordRef.current.value
+        //     )
+        //     .then((authUser) => {
+        //         console.log(authUser)
+        //     })
+        //     .catch((error) => {
+        //         alert(error.message)
+        //     });
+    };
 
     return (
        <div className="SignUpScreen">
@@ -65,16 +80,16 @@ function SignUpScreen() {
             >Sign In</h1>
             <form>
                 <input
-                    // ref ={emailRef} 
+                    ref ={emailRef} 
                     type="email"
                     placeholder="Email"
-                    onChange={(e) => setRegisterEmail(e.target.value)}
+                    // onChange={(e) => setRegisterEmail(e.target.value)}
                 />
                 <input 
-                    // ref={passwordRef}
+                    ref={passwordRef}
                     type="password"
                     placeholder="Password"
-                    onChange={(e) => setRegisterPassword(e.target.value)}
+                    // onChange={(e) => setRegisterPassword(e.target.value)}
                 />
                 <button
                     type="submit"
