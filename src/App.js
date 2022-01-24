@@ -4,22 +4,32 @@ import './App.css';
 import { BrowserRouter , Switch, Route } from "react-router-dom";
 import Homescreen from './Screens/Homescreen';
 import LoginScreen from './Screens/LoginScreen';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout, selectUser } from './features/userSlice';
 
 
 function App() {
-  const user = true;
+  // const user = false;
+  const user = useSelector(selectUser);
+
+  const dispacth = useDispatch();
 
   // everytime the page refesh onAuthStateChanged in useEffect allows to check 
   // if the user is loged in or not by checking the db if user exist
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if(user) {
-        console.log("file: App.js ~ line 18 ~ unsubscribe ~ user", user)
+    const unsubscribe = onAuthStateChanged(auth, (userInfo) => {
+      if(userInfo) {
+        console.log("file: App.js ~ line 18 ~ unsubscribe ~ userInfo", userInfo)
         //Login
-        
+        // dispatching action into the user slice of the redux store
+        dispacth(login({
+          uid: userInfo.uid,
+          email: userInfo.email
+        }))
       } else {
         //User is signed out
+        dispacth(logout)
       }
     })
 
@@ -31,7 +41,7 @@ function App() {
       {/* <h1>App Component</h1> */}
       <BrowserRouter>
         {
-          user ? (
+          !user ? (
             <LoginScreen />
           ) :
           (
