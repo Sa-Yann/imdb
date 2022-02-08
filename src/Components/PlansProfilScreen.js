@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import '../styles/plans_ProfileScreen.css'
 import { selectUser } from '../features/userSlice';
 import { loadStripe } from '@stripe/stripe-js'
+import { useDispatch } from 'react-redux';
+import { getProdInfo_Act } from '../features/productSlice'
 // import { collection, onSnapshot} from 'firebase/firestore'
 
 function Plans_ProfilScreen() {
@@ -12,7 +14,9 @@ function Plans_ProfilScreen() {
     const user = useSelector(selectUser);
 
     const [products, setProducts] = useState([]);
-    const [subscription, setSubscription] = useState(null)
+    const [subscription, setSubscription] = useState(null);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
 
@@ -27,10 +31,13 @@ function Plans_ProfilScreen() {
                     current_period_end: subscriptionInfo.data().current_period_end.seconds,
                     current_period_start: subscriptionInfo.data().current_period_start.seconds
                 })
+                dispatch(getProdInfo_Act({
+                    subscriptionPlan: subscriptionInfo.data().role
+                }))
             })
         })
 
-    },[user.uid])
+    },[user.uid, dispatch])
 
 
     useEffect( () => {
@@ -70,8 +77,8 @@ function Plans_ProfilScreen() {
 
     },[])
 
-    console.log(products);
-    console.log(subscription)
+    // console.log(products);
+    // console.log(subscription)
 
     const loadCheckout =  async (priceId) => {
         const docRef = await db
@@ -85,7 +92,7 @@ function Plans_ProfilScreen() {
                 success_url: window.location.origin,
                 cancel_url: window.location.origin
             })
-        console.log("file: Plans_ProfilScreen.js ~ line 95 ~ loadCheckout ~ docRef", docRef)
+        // console.log("file: Plans_ProfilScreen.js ~ line 95 ~ loadCheckout ~ docRef", docRef)
 
         // using onSnapshot for the app to act as sson as there is a change in the subscription
         docRef.onSnapshot(async(snap) => {
@@ -122,7 +129,7 @@ function Plans_ProfilScreen() {
 
                 const isCurrentPackage = productData.name?.toLowerCase().includes(subscription?.role.toLowerCase())
 
-                console.log("file: Plans_ProfilScreen.js ~ line 117 ~ {Object.entries ~ isCurrentPackage", isCurrentPackage)
+                // console.log("file: Plans_ProfilScreen.js ~ line 117 ~ {Object.entries ~ isCurrentPackage", isCurrentPackage)
 
                 // add some logic to check if the user subsciption is active
                 return (

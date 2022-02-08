@@ -10,7 +10,7 @@ import LoginScreen from './Screens/LoginScreen';
 import ProfileScren from './Screens/ProfileScren';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
-
+import { eraseProductInfo } from './features/productSlice'
 
 function App() {
   // const user = false;
@@ -52,6 +52,7 @@ function App() {
       } else {
         //if User is signed out we push the logout action 
         dispatch(logout());
+        dispatch(eraseProductInfo());
       }
     })
 
