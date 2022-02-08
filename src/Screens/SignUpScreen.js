@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 // import React, { useState} from 'react';
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import '../styles/signUpSreenStyle.css';
+
 
 function SignUpScreen() {
 
@@ -13,20 +13,33 @@ function SignUpScreen() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
-    const register = async (e) => {
-        e.preventDefault()
-        try {
-            // // with useState methode:
-            // const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-            // with useRef methode:
-            const userCredential = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
-            console.log("file: SignUpScreen.js ~ line 21 ~ register ~ userCredential", userCredential);
-            // const  user = userCredential.user
-        } catch (error) {
+    const register = (e) => {
+        e.preventDefault();
+        auth.createUserWithEmailAndPassword(
+            emailRef.current.value,
+            passwordRef.current.value
+        ).then((userInfo) => {
+            console.log(userInfo);
+        }).catch((error) => {
             alert(error.message);
-        }
-    };
+        })
+    }
 
+    // const register = async (e) => {
+    //     e.preventDefault()
+    //     try {
+    //         // // with useState methode:
+    //         // const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+    //         // with useRef methode:
+    //         const userCredential = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
+    //         console.log("file: SignUpScreen.js ~ line 21 ~ register ~ userCredential", userCredential);
+    //         // const  user = userCredential.user
+    //     } catch (error) {
+    //         alert(error.message);
+    //     }
+    // };
+
+    // useing Firebase 9
     // const signIn = (e) => {
     //     e.preventDefault();
     //     signInWithEmailAndPassword(auth, registerEmail, registerPassword)
@@ -48,26 +61,30 @@ function SignUpScreen() {
     const signIn = (e) => {
         // Firebase version 9
         e.preventDefault();
-        
-        signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
-        .then((userCredential) => {
-            const user = userCredential.user
-            console.log("file: SignUpScreen.js ~ line 50 ~ .then ~ user", user)
-        })
-        .catch((error) => {
-            alert(error.message)
-        });
         // Example Firebase version 8
-        // auth(
-        //     emailRef.current.value,
-        //     passwordRef.current.value
-        //     )
-        //     .then((authUser) => {
-        //         console.log(authUser)
-        //     })
-        //     .catch((error) => {
-        //         alert(error.message)
-        //     });
+        auth.signInWithEmailAndPassword(
+            emailRef.current.value,
+            passwordRef.current.value
+            )
+            .then((authUser) => {
+            // Then check show user Info in the console
+                console.log(authUser)
+            })
+            .catch((error) => {
+                // if no user don t exist show message alert info or other any error like wrong email format
+                alert(error.message)
+            });
+        
+        // Using Firebase 9
+        // signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
+        // .then((userCredential) => {
+        //     const user = userCredential.user
+        //     console.log("file: SignUpScreen.js ~ line 50 ~ .then ~ user", user)
+        // })
+        // .catch((error) => {
+        //     alert(error.message)
+        // });
+        
     };
 
     return (

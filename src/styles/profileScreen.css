@@ -19,7 +19,7 @@
 
 
 
-.profilScrn__Content > h1 {
+.profilScrn__Content>h1 {
     display: flex;
     font-weight: 400;
     border-bottom: 1px solid #282c2d;
@@ -37,6 +37,7 @@
 .profScrn__Details {
     margin-left: 25px;
     flex: 1;
+    /* min-width: 300px; */
     /* div takes the all container width*/
 }
 
@@ -44,6 +45,7 @@
     background-color: gray;
     padding: 15px 15px 15px 20px;
     font-size: 15px;
+    margin-bottom: 15px;
 }
 
 .signOut____Btn {
@@ -56,4 +58,81 @@
     font-weight: 600;
     border: none;
     cursor: pointer;
+}
+
+.profilScrn__Plans .h3_title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #282c2d;
+}
+
+.plans__RenewalDate {
+    margin: 20px 0;
+}
+
+.plan__Container {
+    position: relative;
+    z-index: 1;
+}
+
+.plan__Structure {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+    /* background-color: rgba(0, 0, 0) */
+    cursor: pointer;
+}
+
+.overlay:hover {
+    transition: 0.4s;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.overlay__2 {
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    /* background-color: rgba(0, 0, 0) */
+}
+
+.overlay__2:hover > h6 { 
+    transition: 0.4s;
+    color: rgba(238, 237, 237, 0.342);
+}
+
+.plans_details {
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.plan_Subscribe_Btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    /* margin-top: 5%; */
+    width: 120px;
+    color: #fff;
+    background-color: #e50914;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.current__Plan {
+    background-color: gray;
 }

@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
-import { getAuth, onAuthStateChanged } from "firebase/auth"
+// import { onSnapshot, collection } from '@firebase/firestore';
+// import { getAuth, onAuthStateChanged } from "firebase/auth"
+// import db from "./firebase";
+import { auth } from './firebase';
 import './App.css';
 import { BrowserRouter , Switch, Route } from "react-router-dom";
 import Homescreen from './Screens/Homescreen';
@@ -18,23 +21,42 @@ function App() {
   // everytime the page refesh onAuthStateChanged in useEffect allows to check 
   // if the user is loged in or not by checking the db if user exist
   useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (userInfo) => {
+
+    
+
+    // db.collection('products')
+    // .where('active', '==', true)
+    // .get()
+    // .then(function (querySnapshot) {
+    //   querySnapshot.forEach(async function (doc) {
+    //     console.log(doc.id, ' => ', doc.data());
+    //     const priceSnap = await doc.ref.collection('prices').get();
+    //     priceSnap.docs.forEach((doc) => {
+    //       console.log(doc.id, ' => ', doc.data());
+    //     });
+    //   });
+    // });
+  
+    
+    // setting a listener (onAuthStateChanged) to check if user is login or not
+    const unsubscribe = auth.onAuthStateChanged((userInfo) => {
       if(userInfo) {
         // console.log("file: App.js ~ line 18 ~ unsubscribe ~ userInfo", userInfo)
         //Login
-        // dispatching action into the user slice of the redux store
+        // dispatching the state paylaod  into the login action in the redux userSlice
+        // the payload is the userInfo.uid/email taht we get from the onAuthStateChanged listenner
         dispatch(login({
           uid: userInfo.uid,
           email: userInfo.email
         }))
       } else {
-        //User is signed out
+        //if User is signed out we push the logout action 
         dispatch(logout());
       }
     })
 
     return unsubscribe 
+
   },[dispatch]) 
 
   return (
@@ -62,8 +84,7 @@ function App() {
               </Route>
           </Switch>
           )
-        }
-        
+        } 
       </BrowserRouter>
     </div>
   );
